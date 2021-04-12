@@ -1,0 +1,10 @@
+{
+  "name": "react-form-validation",
+  "version": "1.0.0",
+  "description": "a lightweight react library for hook-based declarative form validation",
+  "main": "index.js",
+  "repository": "https://github.com/FaisalST32/react-form-validation",
+  "author": "Faisal Rashid",
+  "license": "MIT",
+  "private": false
+}
