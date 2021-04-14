@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   validateCustomInput,
   validateForm,
@@ -7,10 +7,7 @@ import {
 } from './validators';
 
 export type UseValidationReturnType<T> = {
-  validationResult: [
-    Record<keyof T, ValidationResultType>,
-    Dispatch<SetStateAction<Record<keyof T, ValidationResultType>>>
-  ][0];
+  validationResult: Record<keyof T, ValidationResultType>;
   isValidated: boolean;
   isFormValid: (form: T) => Promise<boolean>;
   validateAll: (form: T) => Promise<Record<keyof T, ValidationResultType>>;
