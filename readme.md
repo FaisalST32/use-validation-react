@@ -1,4 +1,4 @@
-### use-validation-react
+# use-validation-react
 
 A simple react hook for all your form validations.
 
