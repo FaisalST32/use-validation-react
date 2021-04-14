@@ -2,7 +2,7 @@
 
 A simple react hook for all your form validations.
 
-How to use:
+### How to use:
 
 Library exports useValidation hook. The hook accepts one argument, validation records
 
@@ -97,3 +97,20 @@ This will display an error message if name input has been validated and the vali
 | `validateFormElement` | `(form: any, elementKey: string) => Promise<void>` | Sometimes you may want to only run validations for a particular form element. This method accepts two arguments, object to validate and the specific property name. This will update the `validationResult` with the result of this particular input. |
 | `clearValidations` | `() => void` | Calling this method clears the `validationResult`. |
 | `validateAll` |  `(form: any) => Promise<Record<string, { isValid: boolean; messages?: string[]; }>>` | Does the same thing as `isFormValid`, but returns the `validationResult` instead of a boolean. |
+
+### Available Validation Rules
+
+| Rule | Description | Notes |
+|:-----|:------------|:------|
+|Required|Returns true only if the input has non-empty value||
+|Email|Returns true only if the value matches email regex|Regex used: `/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/`|
+|Number|Returns true only if the value is a number or can be parsed to a number||
+|Phone|Returns true if the value is a formatted phone number|May not work for all kinds of phone numbers. For reference, the regex used to validate is `/^(\+[0-9]+)?\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\3([0-9]{4})$/`|
+|NoSpaces|Returns true if the value contains no spaces||
+|Regex|Returns true if the value matches the passed regex|In addition to `rule` and `errorMessage` properties, you need to pass the regex using the `meta` property.|
+|MinimumLength| Returns true if the value length is >= the one passed| In addition to `rule` and `errorMessage` properties, you need to pass the length using the `meta` property.|
+|MaximumLength| Returns true if the value length is <= the one passed| In addition to `rule` and `errorMessage` properties, you need to pass the length using the `meta` property.|
+|Remote|Sometimes you want to write your own validation logic. Use this validation rule for that. You need to pass a function of type `(value: string \| number) => Promise<boolean>` to the meta property of your rule.| This rule can be useful when you need to validate a value on the server e.g., check if email exists, etc.|
+
+
+
