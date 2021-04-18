@@ -113,7 +113,7 @@ export const validateCustomInput = async (
 };
 
 const requiredValidator: ValidatorAction = (value: string | number) =>
-  !!value && value.toString().trim().length > 0;
+  value !== undefined && value !== null && value.toString().trim().length > 0;
 
 const emailValidator: ValidatorAction = (value: string | number) => {
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
