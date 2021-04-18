@@ -2,6 +2,20 @@
 
 A simple react hook for all your form validations.
 
+### How to install:
+
+Install via npm 
+
+```
+npm i use-validation-react
+```
+
+or via yarn
+
+```
+yarn add use-validation-react
+```
+
 ### How to use:
 
 Library exports useValidation hook. The hook accepts one argument, validation records
