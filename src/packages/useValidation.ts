@@ -13,6 +13,7 @@ export type UseValidationReturnType<T> = {
   validateAll: (form: T) => Promise<Record<keyof T, ValidationResultType>>;
   validateFormElement: (form: T, elementKey: keyof T) => Promise<void>;
   clearValidations: () => void;
+  isElementValid: (elementKey: keyof T) => boolean
 };
 
 export const useValidation = <T>(
@@ -60,6 +61,13 @@ export const useValidation = <T>(
     setValidationResult({} as Record<keyof T, ValidationResultType>);
   }, []);
 
+  const isElementValid = useCallback((elementKey: keyof T) => {
+    if (!validationResult[elementKey]) {
+      return true;
+    }
+    return validationResult[elementKey].isValid;
+  }, [validationResult]);
+
   return {
     validationResult,
     isValidated,
@@ -67,5 +75,6 @@ export const useValidation = <T>(
     validateAll,
     validateFormElement,
     clearValidations,
+    isElementValid,
   };
 };
