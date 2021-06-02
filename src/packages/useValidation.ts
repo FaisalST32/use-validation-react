@@ -7,21 +7,21 @@ import {
 } from './validators';
 
 export type UseValidationReturnType<T> = {
-  validationResult: Record<keyof T, ValidationResultType>;
+  validationResult: Partial<Record<keyof T, ValidationResultType>>;
   isValidated: boolean;
   isFormValid: (form: T) => Promise<boolean>;
-  validateAll: (form: T) => Promise<Record<keyof T, ValidationResultType>>;
+  validateAll: (form: T) => Promise<Partial<Record<keyof T, ValidationResultType>>>;
   validateFormElement: (form: T, elementKey: keyof T) => Promise<void>;
   clearValidations: () => void;
   isElementValid: (elementKey: keyof T) => boolean
 };
 
 export const useValidation = <T>(
-  validationRules: Record<keyof T, ValidationType[]>
+  validationRules: Partial<Record<keyof T, ValidationType[]>>
 ): UseValidationReturnType<T> => {
   const [validationResult, setValidationResult] = useState<
-    Record<keyof T, ValidationResultType>
-  >({} as Record<keyof T, ValidationResultType>);
+    Partial<Record<keyof T, ValidationResultType>>
+  >({});
 
   const [isValidated, setIsValidated] = useState(false);
 
@@ -41,7 +41,7 @@ export const useValidation = <T>(
         (form[elementKey] as unknown) as string | number,
         validationRules[elementKey as keyof T]
       );
-      setValidationResult((prev: Record<keyof T, ValidationResultType>) => ({ ...prev, [elementKey]: result }));
+      setValidationResult((prev: Partial<Record<keyof T, ValidationResultType>>) => ({ ...prev, [elementKey]: result }));
       setIsValidated(true);
     },
     [validationRules]
@@ -51,21 +51,21 @@ export const useValidation = <T>(
     async (form: T) => {
       const validationResult = await validateAll(form);
       return !Object.keys(validationResult).some(
-        (key) => !validationResult[key as keyof T].isValid
+        (key) => !validationResult[key as keyof T]?.isValid
       );
     },
     [validateAll]
   );
 
   const clearValidations = useCallback(() => {
-    setValidationResult({} as Record<keyof T, ValidationResultType>);
+    setValidationResult({});
   }, []);
 
   const isElementValid = useCallback((elementKey: keyof T) => {
     if (!validationResult[elementKey]) {
       return true;
     }
-    return validationResult[elementKey].isValid;
+    return !!validationResult[elementKey]?.isValid;
   }, [validationResult]);
 
   return {

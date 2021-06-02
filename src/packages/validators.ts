@@ -42,12 +42,9 @@ export type ValidatorAction = (
 
 export const validateForm = async <T>(
   formToValidate: T,
-  validationRules: Record<keyof T, ValidationType[]>
-): Promise<Record<keyof T, ValidationResultType>> => {
-  const result: Record<keyof T, ValidationResultType> = {} as Record<
-    keyof T,
-    ValidationResultType
-  >;
+  validationRules: Partial<Record<keyof T, ValidationType[]>>
+): Promise<Partial<Record<keyof T, ValidationResultType>>> => {
+  const result: Partial<Record<keyof T, ValidationResultType>> = {};
   await Promise.all(
     Object.keys(validationRules).map(async (key) => {
       const rules = validationRules[key as keyof T];
@@ -78,7 +75,7 @@ export enum ValidationRule {
 
 export const validateCustomInput = async (
   value: string | number,
-  validations: ValidationType[]
+  validations?: ValidationType[]
 ): Promise<ValidationResultType> => {
   if (!validations || !validations.length) {
     return { isValid: true };

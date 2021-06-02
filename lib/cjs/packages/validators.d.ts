@@ -34,7 +34,7 @@ export declare type ValidationResultType = {
     messages?: string[];
 };
 export declare type ValidatorAction = (value: string | number, meta?: any) => boolean | Promise<boolean>;
-export declare const validateForm: <T>(formToValidate: T, validationRules: Record<keyof T, ValidationType[]>) => Promise<Record<keyof T, ValidationResultType>>;
+export declare const validateForm: <T>(formToValidate: T, validationRules: Partial<Record<keyof T, ValidationType[]>>) => Promise<Partial<Record<keyof T, ValidationResultType>>>;
 export declare enum ValidationRule {
     Required = 0,
     Email = 1,
@@ -46,4 +46,4 @@ export declare enum ValidationRule {
     MaximumLength = 7,
     Remote = 8
 }
-export declare const validateCustomInput: (value: string | number, validations: ValidationType[]) => Promise<ValidationResultType>;
+export declare const validateCustomInput: (value: string | number, validations?: ValidationType[] | undefined) => Promise<ValidationResultType>;
