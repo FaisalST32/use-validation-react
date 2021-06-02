@@ -6,5 +6,6 @@ export declare type UseValidationReturnType<T> = {
     validateAll: (form: T) => Promise<Record<keyof T, ValidationResultType>>;
     validateFormElement: (form: T, elementKey: keyof T) => Promise<void>;
     clearValidations: () => void;
+    isElementValid: (elementKey: keyof T) => boolean;
 };
 export declare const useValidation: <T>(validationRules: Record<keyof T, ValidationType[]>) => UseValidationReturnType<T>;

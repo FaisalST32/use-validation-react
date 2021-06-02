@@ -111,6 +111,7 @@ This will display an error message if name input has been validated and the vali
 | `validateFormElement` | `(form: any, elementKey: string) => Promise<void>` | Sometimes you may want to only run validations for a particular form element. This method accepts two arguments, object to validate and the specific property name. This will update the `validationResult` with the result of this particular input. |
 | `clearValidations` | `() => void` | Calling this method clears the `validationResult`. |
 | `validateAll` |  `(form: any) => Promise<Record<string, { isValid: boolean; messages?: string[]; }>>` | Does the same thing as `isFormValid`, but returns the `validationResult` instead of a boolean. |
+| `isElementValid` |  `(elementKey: string) => boolean` | Checks if the form element with the given key is valid or not. Note: Calling this method does not run the validation rules for that particular form element. To run validations, use `validateFormElement` |
 
 ### Available Validation Rules
 
