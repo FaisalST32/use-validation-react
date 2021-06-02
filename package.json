@@ -1,6 +1,6 @@
 {
   "name": "use-validation-react",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "a lightweight react library for hook-based declarative form validation",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
